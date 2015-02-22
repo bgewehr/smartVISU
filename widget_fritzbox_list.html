@@ -1,0 +1,231 @@
+/**
+* -----------------------------------------------------------------------------
+* @package     smartVISU fritzbox widgets
+* @author      Bernd Gewehr
+* @copyright   2014
+* @license     GPL [http://www.gnu.com]
+
+/**
+* Fritzbox Systeminfo
+*
+* @param unique id for this widget
+* @param a gad/item name of the fritzbox
+* @param a gad/item firmware Version
+*
+*/
+{% macro sys(id, gad_name, gad_version, gad_wlan24, gad_wlan5, gad_wlanguest, gad_gastaktiv, gad_dect) %}
+	{% import "basic.html" as basic %}
+	{% set uid = uid(page, id) %}
+
+	<li data-icon="false">
+	<div class="nw_table">
+		<div class="text">{{ basic.value(id~'name', gad_name) }}</div>
+		<div class="status"></div>		
+		<div class="buttons">{{ basic.value(id~'version', gad_version) }}</div>
+	</div>
+	</li>
+	<li data-icon="false">
+	<div class="nw_table">
+			<div class="text">WLAN 2.4 GHz</div>
+			<div class="status">{{ basic.switch(id~'wlan24', gad_wlan24) }}</div>
+			<div class="buttons"></div>
+	</div>
+	</li>
+	<li data-icon="false">
+	<div class="nw_table">
+			<div class="text">WLAN 5.0 GHz</div>
+			<div class="status">{{ basic.switch(id~'wlan5', gad_wlan5) }}</div>
+			<div class="buttons"></div>			
+	</div>
+	</li>
+	<li data-icon="false">
+	<div class="nw_table">
+			<div class="text">WLAN Gast</div>
+			<div class="status">{{ basic.switch(id~'wlanguest', gad_wlanguest) }}</div>
+			<div class="buttons">{{ basic.value(id~'gastakt', gad_gastaktiv) }}&nbsp;aktiv</div>
+	</div>
+	</li>
+	<li data-icon="false">
+	<div class="nw_table">
+		<div class="text">DECT</div>
+		<div class="status">{{ basic.switch(id~'dect', gad_dect) }}</div>
+		<div class="buttons"></div>		
+	</div>
+	</li>
+{% endmacro %}
+
+{% macro template(id, txt, gad_open, gad_duration) %}
+    {% import "basic.html" as basic %}
+    <li data-icon="false">
+    <div class="nw_table">
+        <div class="text">{{ txt|e }}</div>
+        <div class="status"></div>
+        <div class="buttons"></div>
+        <div class="landscape"></div>
+    </div>
+    </li>
+{% endmacro %}
+
+/**
+* Fritzbox Alarme
+*
+* @param unique id for this widget
+* @param a gad/item Name des Weckers1
+* @param a gad/item Status des Weckers1 OnOff
+* @param a gad/item Ziel des Weckers1 Telefongerät
+* @param a gad/item Zeit des Weckers1 hh:mm
+* @param a gad/item Wochentage des Weckers1 Mo Tu We Th Fr Sa Su oder daily
+*
+*/
+{% macro alarm(id, gad_name, gad_state, gad_target, gad_time, gad_wdays) %}
+	{% import "basic.html" as basic %}
+	{% set uid = uid(page, id) %}
+	<li data-icon="false">
+	<div class="nw_table">
+		<div class="text">{{ basic.value(id~'name', gad_name) }}</div>
+		<div class="buttons">{{ basic.switch(id~'state', gad_state) }}</div>
+	</div>
+	</li>
+	<li data-icon="false">
+	<div class="nw_table">
+		<div class="text"> an {{ basic.value(id~'target', gad_target) }}&nbsp;
+		[{{ basic.value(id~'wdays', gad_wdays) }}]</div>
+		<div class="buttons">{{ basic.value(id~'time', gad_time) }}&nbsp;Uhr</div>
+	</div>
+	</li>
+{% endmacro %}
+
+
+/**
+* Fritzbox DECT
+*
+* @param unique id for this widget
+* @param a gad/item Name des Weckers1
+* @param a gad/item Status des Weckers1 OnOff
+* @param a gad/item Ziel des Weckers1 Telefongerät
+* @param a gad/item Zeit des Weckers1 hh:mm
+* @param a gad/item Wochentage des Weckers1 Mo Tu We Th Fr Sa Su oder daily
+*
+*/
+{% macro dect(id, gad_name, gad_version, gad_manufacturer, gad_model, gad_alarm_ringtone, gad_intern_ringtone, gad_image, gad_number, gad_radio) %}
+	{% import "basic.html" as basic %}
+	{% import 'basic2.html' as basic2 %}
+	{% set uid = uid(page, id) %}
+
+	<li data-icon="false">
+	<div class="nw_table">
+			<div class="text">
+				/**{% if gad_image %}{{ basic2.img(id~'image2', gad_image, 'ftp://ftpuser:ftpuser@fritz.nas/FRITZ/fonpix/', '([\\w\\-]+)\\.\\w{3}') }}{% endif %}*/
+				{{ basic.value(id~'name', gad_name) }}
+			</div>
+			<div class="status">
+				{{ basic.value(id~'numberlnk', gad_number) }}
+			</div>
+			<div class="buttons">
+			{% if gad_manufacturer %}{{ basic.value(id~'manufacturer', gad_manufacturer) }}&nbsp;{% endif %}
+			{% if gad_model %}{{ basic.value(id~'model', gad_model) }}{% endif %}			
+			</div>
+/**			<div class="landscape">
+			{% if gad_alarm_ringtone %}Alarm:&nbsp;{{ basic.value(id~'alarm', gad_alarm_ringtone) }}{% endif %}
+			{% if gad_intern_ringtone %}Intern:&nbsp;{{ basic.value(id~'intern', gad_intern_ringtone) }}{% endif %}
+			{% if gad_radio %}Radio:&nbsp;{{ basic.value(id~'radio', gad_radio) }}{% endif %}
+			</div>*/
+		</div>
+	</li>
+	
+{% endmacro %}
+
+/**
+* Fritzbox Anrufbeantworter
+*
+* @param unique id for this widget
+* @param a gad/item Name des Anrufbeantworters
+* @param a gad/item Status des Anrufbeantworters (OnOff)
+* @param a gad/item Neue Nachrichten
+* @param a gad/item Frühere Nachrichten
+*
+*/
+{% macro tam(id, gad_name, gad_newMsg, gad_oldMsg, gad_state) %}
+	{% import "basic.html" as basic %}
+	{% set uid = uid(page, id) %}
+	<li data-icon="false">	
+		<div class="nw_table">
+			<div class="text">{{ basic.value(id~'name', gad_name) }}</div>
+			<div class="status">{% if gad_state %}{{ basic.switch(id~'state', gad_state) }}{% endif %}</div>
+			<div class="buttons">{% if gad_newMsg %}neu:&nbsp;{{ basic.value(id~'newMsg', gad_newMsg) }}{% endif %}</div>
+		</div>
+	</li>
+{% endmacro %}
+
+/**
+* Fritzbox User
+*
+* @param unique id for this widget
+* @param a gad/item Name des Users
+* @param a gad/item Onlinezeit diesen Monat
+* @param a gad/item Onlinezeit heut in sek.
+* @param a gad/item Onlinezeit heute in hh:mm
+* @param a gad/item Typ (gast, IP, PC)
+*
+*/
+{% macro user(ids, gad_name, gad_monthtime, gad_todaytime, gad_todaysec, gad_type) %}
+	{% import "basic.html" as basic %}
+	{% for id in ids %}
+	{% set uid = uid(page, id) %}
+
+	<div data-item="{{id~gad_name}}" data-widget="basic.hider">
+	<li data-icon="false">	
+	<div class="nw_table">
+		<div class="text">{{ basic.value(id~'name', id~gad_name) }}</div>
+		<div class="status">{% if gad_type %}{{ basic.value(id~'type', id~gad_type) }}{% endif %}</div>
+		/**{% if gad_monthtime %}{{ basic.value(id~'month', id~gad_monthtime) }} &nbsp;diesen Monat{% endif %}*/
+		<div class="buttons">{% if gad_todaytime %}{{ basic.value(id~'today', id~gad_todaytime) }}{% endif %}</div>
+	</div>
+	</li>
+	</div>
+	{% endfor %}
+{% endmacro %}
+
+/**
+* Fritzbox Callmonitor
+*
+* @param unique id for this widget
+* @param a gad/item Callmonitor last event
+* @param a gad/item Callmonitor direction
+* @param a gad/item Callmonitor internal_connection
+* @param a gad/item Callmonitor internal number
+* @param a gad/item Callmonitor external connection
+* @param a gad/item Callmonitor external number
+* @param a gad/item Callmonitor external name
+* @param a gad/item Callmonitor call duration
+*
+*/
+{% macro callmonitor(id, gad_event, gad_direction, gad_intconn, gad_intnumber, gad_extconn, gad_extnumber, gad_extname, gad_duration) %}
+	{% import "basic.html" as basic %}
+	{% import 'basic2.html' as basic2 %}
+	{% set uid = uid(page, id) %}
+	<div>
+		<table style="text-align:left" width="100%">
+			<tr><td>Timestamp:&nbsp;</td><td>{{ basic.value(id~'call_timestamp', 'FB_call_timestamp') }}</td></tr>
+			<tr><td>Ereignis:&nbsp;</td><td>
+				{{ basic.symbol(id~'ring', gad_event, 'ring', icon1~'phone_ring.png', 'ring') }}
+				{{ basic.symbol(id~'call', gad_event, 'call', icon1~'phone_call_out.png', 'call') }}
+				{{ basic.symbol(id~'connect', gad_event, 'connect', icon1~'phone_call.png', 'connect') }}
+				{{ basic.symbol(id~'incoming', gad_direction, 'in', icon1~'phone_call_in.png', 'incoming') }}
+				{{ basic.symbol(id~'outgoing', gad_direction, 'out', icon1~'phone_call_out.png', 'outgoing') }}				
+				{{ basic.symbol(id~'disconnect', gad_event, 'disconnect', icon1~'phone_call_end.png', 'disconnect') }}				
+			</td></tr>
+			<tr><td>Interner Teilnehmer:&nbsp;</td><td>
+				{% if gad_intnumber %}{{ basic.value(id~'intnumber', gad_intnumber) }}{% endif %}
+				{% if gad_intconn %}&nbsp;über&nbsp;{{ basic.value(id~'intconn', gad_intconn) }}{% endif %}				
+			</td></tr>
+			<tr><td>Externer Teilnehmer:&nbsp;</td><td>
+				{% if gad_extname %}{{ basic.value(id~'extname', gad_extname) }}{% endif %}&nbsp;
+				{% if gad_extnumber %}({{ basic.value(id~'extnumber', gad_extnumber) }}){% endif %}
+				{% if gad_extconn %}&nbsp;über&nbsp;{{ basic.value(id~'extconn', gad_extconn) }}{% endif %}
+			</td></tr>
+				{% if gad_duration %}<tr><td>Dauer:&nbsp;</td><td>{{ basic2.timecounter(id~'duration', gad_duration, 'backend') }}&nbsp;Minuten</td></tr>{% endif %}
+		</table>
+	</div>
+	
+{% endmacro %}

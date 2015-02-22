@@ -1,0 +1,47 @@
+/**
+* -----------------------------------------------------------------------------
+* @package     smartVISU
+* @author      Martin Gleiß
+* @copyright   2012
+* @license     GPL [http://www.gnu.de]
+* -----------------------------------------------------------------------------
+*/
+
+{% extends "rooms.html" %}
+{% import "widget_list.html" as list %}
+
+{% block content %}
+
+	<div class="preblock">
+	</div>
+	
+	<h1><img class="icon" src='{{ icon0 }}scene_office.png'/>Büro</h1>
+		
+	<div class="scenes">
+		<span data-role="controlgroup" data-type="horizontal">
+			{{ basic.button('light.b', 'wz.light.szene', icon1~'it_television.png', icon0~'it_television.png', 'fernsehen') }}
+			{{ basic.button('light.d', 'wz.light.szene', icon1~'light_dinner_table.png', icon0~'light_dinner_table.png', 'lesen') }}
+			{{ basic.button('light.e', 'wz.light.szene', icon1~'light_party.png', icon0~'light_party.png', 'party') }}
+			{{ basic.button('light.f', 'wz.light.szene', icon1~'light_light_dim_100.png', icon0~'light_light_dim_100.png', 'full') }}
+			{{ basic.button('light.h', 'wz.light.szene', icon1~'control_on_off.png', icon0~'control_on_off.png', 'off') }}
+		</span>
+	</div>	
+	<div style="clear:both;"></div>
+	<ul data-role="listview" data-dividertheme="c" class="nw_list">
+		{{ list.header()}}
+		{{ list.rtrCC('HMCC_EG', 'Heizungsventil', 'WZ1_rtr_act', 'WZ1_rtr_set', 'WZ1_rtr_controlmode', 'WZ1_rtr_daytemp', 'WZ1_rtr_nighttemp', 'WZ.fenster', 'WZ1_rtr_battery',  '', 'WZ1_rtr_text', '','WZ1_rtr_ventil', 'WZ1_rtr_sat', 'WZ1_rtr_sun', 'WZ1_rtr_mon', 'WZ1_rtr_tue', 'WZ1_rtr_wed', 'WZ1_rtr_thu', 'WZ1_rtr_fri', 'WZ1_rtr_init', 'WZ1_rtr_save', 'WZ1_rtr_restore') }}
+	</ul>
+
+{% import 'icon.html' as icon %}
+
+{{ basic.shifter(id~'battery', '', 'WZ1_rtr_battery', 'icon.battery', '',2.2, 3) }}
+
+{{ attribute(icon, 'battery', ['ert', '', 'WZ1_rtr_battery', 2.1, 3]) }}
+
+
+{{ basic.slider('slider2', 'WZ1_rtr_battery', 0, 3, 0.1) }}
+
+
+	
+{% endblock %}
+

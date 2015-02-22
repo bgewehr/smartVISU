@@ -1,0 +1,8 @@
+config.ini
+config.php
+*.old.php
+*.old.html
+*.old.ini
+*.old.css
+*.old.js
+./temp/*

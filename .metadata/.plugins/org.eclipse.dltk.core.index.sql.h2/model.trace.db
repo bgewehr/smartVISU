@@ -1,0 +1,26 @@
+01-18 12:25:40 database: close
+org.h2.message.DbException: Eingabe/Ausgabe: "java.io.IOException: Der angegebene Netzwerkname ist nicht mehr verfügbar"; "V:/pages/gewehr/.metadata/.plugins/org.eclipse.dltk.core.index.sql.h2/model.h2.db"
+IO Exception: "java.io.IOException: Der angegebene Netzwerkname ist nicht mehr verfügbar"; "V:/pages/gewehr/.metadata/.plugins/org.eclipse.dltk.core.index.sql.h2/model.h2.db" [90031-168]
+	at org.h2.message.DbException.get(DbException.java:158)
+	at org.h2.message.DbException.convertIOException(DbException.java:315)
+	at org.h2.store.FileStore.write(FileStore.java:330)
+	at org.h2.store.PageStore.writePage(PageStore.java:1327)
+	at org.h2.store.PageStreamData.write(PageStreamData.java:105)
+	at org.h2.store.PageOutputStream.storePage(PageOutputStream.java:146)
+	at org.h2.store.PageOutputStream.flush(PageOutputStream.java:154)
+	at org.h2.store.PageLog.checkpoint(PageLog.java:677)
+	at org.h2.store.PageStore.checkpoint(PageStore.java:429)
+	at org.h2.engine.Database.closeOpenFilesAndUnlock(Database.java:1196)
+	at org.h2.engine.Database.close(Database.java:1149)
+	at org.h2.engine.DatabaseCloser.run(DatabaseCloser.java:80)
+Caused by: org.h2.jdbc.JdbcSQLException: Eingabe/Ausgabe: "java.io.IOException: Der angegebene Netzwerkname ist nicht mehr verfügbar"; "V:/pages/gewehr/.metadata/.plugins/org.eclipse.dltk.core.index.sql.h2/model.h2.db"
+IO Exception: "java.io.IOException: Der angegebene Netzwerkname ist nicht mehr verfügbar"; "V:/pages/gewehr/.metadata/.plugins/org.eclipse.dltk.core.index.sql.h2/model.h2.db" [90031-168]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:329)
+	... 12 more
+Caused by: java.io.IOException: Der angegebene Netzwerkname ist nicht mehr verfügbar
+	at java.io.RandomAccessFile.writeBytes(Native Method)
+	at java.io.RandomAccessFile.write(Unknown Source)
+	at org.h2.store.fs.FileDisk.write(FilePathDisk.java:438)
+	at org.h2.store.fs.FileUtils.writeFully(FileUtils.java:372)
+	at org.h2.store.FileStore.write(FileStore.java:327)
+	... 9 more

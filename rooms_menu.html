@@ -1,0 +1,214 @@
+/**
+* -----------------------------------------------------------------------------
+* @package     smartVISU
+* @author      Martin Gleiß
+* @copyright   2012
+* @license     GPL [http://www.gnu.de]
+* -----------------------------------------------------------------------------
+*/
+
+<div class="quickbuttons">
+	<div class="quickbuttons_h">
+		<h1><img class="icon" src='{{ icon0 }}audio_ff.png'/>Quickbuttons:</h1>
+	</div>
+	<div class="scenes">
+		<span data-role="controlgroup" data-type="horizontal">
+			{{ basic.button('quick.alldonwn', 'quick.alldown', '', icon1~'control_arrow_down.png', 'on') }}
+			{{ basic.button('quick.allup', 'quick.allup', '', icon1~'control_arrow_up.png', 'off') }}
+			{{ basic.button('quick.alloff', 'quick.alloff', '', icon1~'light_light_dim_100.png', 'off') }}
+			{{ basic.button('quick.allon', 'quick.allon', '', icon1~'light_light_dim_00.png', 'on') }}
+			{{ basic.button('quick.garage', 'garage.sw', '', icon0~'Hoermann.png') }}
+		</span>
+	</div>
+</div>	
+	
+<ul data-role="listview" data-dividertheme="c" class="nw_tiles">
+	<li data-icon="false" class="ui-btn ui-btn-up-a ui-btn-icon-right ui-li ui-li-has-thumb">
+		<a href="index.php?page=room_garage">
+	      	<div class="icon ui-li-thumb">
+				{% import "icon.html" as icon %}
+				{{ icon.shutter('garagentor1', '', 'garage.state', 0, 100) }}
+			</div>
+			<h3>Garage</h3>
+			<div class="ui-ri-aside">
+				{{ basic.value('tor', 'garage.state') }}% geschlossen&nbsp;
+			</div>
+		</a>
+	</li>
+	
+	<li data-icon="false" class="ui-btn ui-btn-up-a ui-btn-icon-right ui-li ui-li-has-thumb">
+		<a class="ui-link-inherit">
+		/**	<img class="icon" src='{{ icon0 }}message_presence_active.png'/>*/
+		<div class="icon ui-li-thumb">
+			{{ basic.symbol('present', 'residents', '', icon1~'message_presence_active.png', 'present') }}
+			{{ basic.symbol('absent', 'residents', '', icon0~'message_presence_inactive.png', 'absent') }}
+		</div>
+		<div >
+			<h3 class="ui-li-heading">Presence</h3>
+		</div>
+			<div class="ui-ri-aside">
+			<table border="0" cellpadding="0" cellspacing="0" border-spacing="0" width="100%" style="text-align:center; font-size:0.85em; float:right">
+			<tr><td>K</td><td>B</td><td>L</td><td>M</td></tr>
+			<tr>
+			<td>{{ basic.symbol('Kerstin', 'resident_kerstin', '', icon1~'message_presence_active.png', 'present') }}
+				{{ basic.symbol('NoKerstin', 'resident_kerstin', '', icon0~'message_presence_inactive.png', 'absent') }}</td>				
+			<td>{{ basic.symbol('Bernd', 'resident_bernd', '', icon1~'message_presence_active.png', 'present') }}
+				{{ basic.symbol('NoBernd', 'resident_bernd', '', icon0~'message_presence_inactive.png', 'absent') }}</td>
+			<td>{{ basic.symbol('Laura', 'resident_laura', '', icon1~'message_presence_active.png', 'present') }}								
+				{{ basic.symbol('NoLaura', 'resident_laura', '', icon0~'message_presence_inactive.png', 'absent') }}</td>								
+			<td>{{ basic.symbol('Max', 'resident_max', '', icon1~'message_presence_active.png', 'present') }}							
+				{{ basic.symbol('NoMax', 'resident_max', '', icon0~'message_presence_inactive.png', 'absent') }}</td>							
+			</tr>
+			</table>
+			</div>
+		</a>
+	</li>	
+	<li data-icon="false" class="ui-btn ui-btn-up-a ui-btn-icon-right ui-li ui-li-has-thumb">
+		<a href="index.php?page=room_energie">
+			/**<img class="icon" src='{{ icon0 }}measure_power_meter.png'/>*/
+			<div class="icon ui-li-thumb">
+				{% import "icon.html" as icon %}
+				{{ icon.graph('Stromverbrauch', '', 'VZ.strom.aktuell', 0, 5000) }}
+			</div>
+			<h3>Energie</h3>
+			<div class="ui-ri-aside">
+				<table  border="0" cellpadding="0" cellspacing="0" border-spacing="0" width="100%" style="font-size:0.85em; float:right">
+					<tr><td width="20%"></td><td width="40%">akt&nbsp;</td>
+					<td width="40%">24h</td></tr>
+					<tr><td>G:&nbsp;</td>
+					<td>{{ basic.float('VZ.gas.aktuell', 'VZ.gas.aktuell', 'm3') }} &nbsp;</td>
+					<td>{{ basic.float('VZ.gas.24h', 'VZ.gas.24h', 'm3') }}</td></tr>
+					<tr><td>S:&nbsp;</td><td>{{ basic.value('VZ.strom.aktuell', 'VZ.strom.aktuell', 'W') }}&nbsp;</td>
+					<td>{{ basic.formula('VZ.strom.24h', 'VZ.strom.24h', 'kWh', 'VAR / 1000') }}</td></tr>
+				</table>
+			</div>
+		</a>
+	</li>
+	<li data-icon="false" class="ui-btn ui-btn-up-a ui-btn-icon-right ui-li ui-li-has-thumb">
+		<a href="index.php?page=room_Heizung">
+			<div class="icon ui-li-thumb">
+				{{ basic.symbol('brennt', 'Heizung.aktiv', '', icon1~'sani_boiler_temp.png', 'on') }}
+				{{ basic.symbol('brennt_nicht', 'Heizung.aktiv', '', icon0~'sani_boiler_temp.png', 'off') }}
+			</div>
+			<h3>Heizung</h3>
+			<div class="ui-ri-aside">
+				<table  border="0" cellpadding="0" cellspacing="0" border-spacing="0" width="100%" style="font-size:0.85em; float:right">
+					<tr>
+					<td>
+						{{ basic.symbol('Pumpe.aktiv', 'Pumpe.aktiv', 'Heizung', icon1~'sani_pump.png','on') }}
+						{{ basic.symbol('ww.Pumpe.aktiv', 'ww.Pumpe.aktiv', 'Wasser', icon1~'sani_pump.png','on') }}
+					</td>
+					</tr>
+					<tr>
+					<td>
+						V:{{ basic.float('Heizung.vorlauf.aktuell', 'Heizung.vorlauf.aktuell', '°') }} 
+						R:{{ basic.float('Heizung.ruecklauf.aktuell', 'Heizung.ruecklauf.aktuell', '°') }}
+						WW:{{ basic.float('Heizung.ww.aktuell', 'Heizung.ww.aktuell', '°') }}
+					</td>
+					</tr>
+				</table>
+			</div> 
+		</a>
+	</li>
+	<li data-icon="false">
+		<a href="index.php?page=room_wohnzimmer">
+			<img class="icon" src='{{ icon0 }}scene_livingroom.png'/>
+			<h3>Wohnen</h3>
+			<div class="ui-ri-aside">
+				{{ basic.symbol('WZ.rtr.state2', 'WZ.rtr.state', '', icon1~'sani_heating_temp.png','on') }} &nbsp;
+				{{ basic.symbol('WZ.fensterauf', 'WZ.fenster', '', icon1~'fts_window_2w_open.png','open') }} &nbsp;
+				{{ basic.float('WZ.temperatur', 'WZ.temperatur.luft', ' °C') }} &nbsp;
+				{{ basic.float('WZ.humidity', 'WZ.humidity', ' %') }}
+			</div> 
+		</a>
+	</li>
+	<li data-icon="false">
+		<a href="index.php?page=room_Kueche">
+			<img class="icon" src='{{ icon0 }}scene_cooking_hob.png'/><h3>Küche</h3>
+			<div class="ui-li-aside"></div>
+		</a>
+	</li>
+	<li data-icon="false">
+		<a href="index.php?page=room_gaeste-wc">
+			<img class="icon" src='{{ icon0 }}scene_toilet_alternat.png'/><h3>Gäste-WC</h3>
+			<div class="ui-li-aside"></div>
+		</a>
+	</li>
+	<li data-icon="false">
+		<a href="index.php?page=room_Flur">
+			<img class="icon" src='{{ icon0 }}scene_corridor.png'/><h3>Flur</h3>
+			<div class="ui-li-aside"></div>
+		</a>
+	</li>
+       <li data-icon="false">
+		<a href="index.php?page=room_laura">
+			<img class="icon" src='{{ icon0 }}scene_childs_room.png'/><h3>Laura</h3>
+			<div class="ui-li-aside">
+
+			</div>
+		</a>
+	</li>
+      <li data-icon="false">
+	<a href="index.php?page=room_buero">
+		<img class="icon" src='{{ icon0 }}scene_office.png'/><h3>Büro</h3>
+		<div class="ui-ri-aside">
+			{{ basic.symbol('B.fensterauf', 'B.fenster', '', icon1~'fts_window_2w_open.png','open') }} &nbsp;
+			{{ basic.float('B.temperatur', 'WZ1_rtr_act', ' °C') }} &nbsp;
+			{{ basic.float('B.valve', 'WZ1_rtr_ventil', ' %') }}		
+		</div>
+	</a>
+      </li>
+      <li data-icon="false">
+	<a href="index.php?page=room_maxi">
+		<img class="icon" src='{{ icon0 }}scene_childs_room.png'/><h3>Maxi</h3>
+		<div class="ui-li-aside">
+
+		</div>
+	</a>
+      </li>
+      <li data-icon="false">
+	<a href="index.php?page=room_kinderbad">
+		<img class="icon" src='{{ icon0 }}scene_bathroom.png'/><h3>Kinderbad</h3>
+		<div class="ui-li-aside"></div>
+	</a>
+      </li>
+      <li data-icon="false">
+	<a href="index.php?page=room_flur_og">
+		<img class="icon" src='{{ icon0 }}scene_corridor.png'/><h3>Flur</h3>
+		<div class="ui-li-aside"></div>
+	</a>
+      </li>
+      <li data-icon="false">
+		<a href="index.php?page=room_schlafzimmer">
+			<img class="icon" src='{{ icon0 }}scene_sleeping_alternat.png'/><h3>Schlafen</h3>
+			<div class="ui-li-aside"></div>
+		</a>
+       </li>
+       <li data-icon="false">
+		<a href="index.php?page=room_elternbad">
+			<img class="icon" src='{{ icon0 }}scene_bathroom.png'/><h3>Elternbad</h3>
+			<div class="ui-li-aside"></div>
+		</a>
+       </li>
+	<li data-icon="false">
+			<a href="index.php?page=room_garten">
+				<img class="icon" src='{{ icon0 }}scene_garden.png'/><h3>Garten</h3>
+				<div class="ui-ri-aside">
+					{{ basic.float('Terrasse.temperatur', 'Terrasse.temperatur.luft', ' °C') }} &nbsp;
+					{{ basic.float('Terrasse.humidity', 'Terrasse.humidity', ' %') }}<br />
+				</div>
+			</a>
+	</li>
+	<li data-icon="false">
+			<a href="index.php?page=room_terrasse">
+				<img class="icon" src='{{ icon0 }}scene_terrace.png'/><h3>Terrasse</h3>
+				<div class="ui-li-aside"></div>
+			</a>
+	</li>
+	<li data-icon="false">
+			<a href="index.php?page=room_eingang">
+				<img class="icon" src='{{ icon0 }}scene_corridor.png'/><h3>Eingangsbereich</h3>
+				<div class="ui-li-aside"></div>
+			</a>
+	</li>
+</ul>

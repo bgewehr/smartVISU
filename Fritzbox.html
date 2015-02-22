@@ -1,0 +1,96 @@
+/**
+* -----------------------------------------------------------------------------
+* @package     smartVISU
+* @author      Martin Gleiß
+* @copyright   2012
+* @license     GPL [http://www.gnu.de]
+* -----------------------------------------------------------------------------
+*/
+
+
+{% extends "rooms.html" %}
+{% import "widget_fritzbox_list.html" as fritzbox %}
+
+{% block content %}
+
+<h1><img class="icon" src='{{ icon0 }}it_router.png'/>Fritzbox</h1>
+
+    <div class="preblock">
+    {% import "widget_auth_switch.html" as key %}
+	{{ key.auth_switch('Switchfire', 'test.io', icon1~'secur_smoke_detector.png', icon0~'secur_smoke_detector.png',1,0,1234,'Code eingeben:','Falscher Code') }}
+	disable Timer für callmonitor: {{ basic.switch('testattr','testattr') }}
+	</div>
+    <ul data-role="listview" data-dividertheme="c" class="nw_list">
+		{{ fritzbox.sys('FBox', 'FB_name', 'FB_version', 'FB_wlan24', 'FB_wlan5', 'FB_wlanguest', 'FB_wlangastaktiv', 'FB_dect') }}
+	</ul>
+
+	
+    <div class="block">
+		<div class="set-2" data-role="collapsible-set" data-theme="c" data-content-theme="a" data-mini="true">
+				<div data-role="collapsible" data-collapsed="false" >
+					<h3>letzter Anruf</h3>
+					{{ fritzbox.callmonitor('FBCallmon', 'FB_event', 'FB_direction', 'FB_intconn', 'FB_intnumber', 'FB_extconn', 'FB_extnumber', 'FB_extname', 'FB_duration') }}
+				</div>
+		</div>
+	</div>	
+    <div class="block">
+		<div class="set-2" data-role="collapsible-set" data-theme="c" data-content-theme="a" data-mini="true">
+			<div data-role="collapsible" data-collapsed="false" >
+				<h3>Wecker</h3>
+				<ul data-role="listview" data-dividertheme="c" class="nw_list">
+					{{ fritzbox.alarm('FB_Alarm1', 'FB_alarm1_name', 'FB_alarm1_state', 'FB_alarm1_target', 'FB_alarm1_time', 'FB_alarm1_wdays') }}
+					{{ fritzbox.alarm('FB_Alarm2', 'FB_alarm2_name', 'FB_alarm2_state', 'FB_alarm2_target', 'FB_alarm2_time', 'FB_alarm2_wdays') }}
+					{{ fritzbox.alarm('FB_Alarm3', 'FB_alarm3_name', 'FB_alarm3_state', 'FB_alarm3_target', 'FB_alarm3_time', 'FB_alarm3_wdays') }}
+				</ul>
+			</div>
+		</div>
+	</div>	
+    <div class="block">
+		<div class="set-2" data-role="collapsible-set" data-theme="c" data-content-theme="a" data-mini="true">
+			<div data-role="collapsible" data-collapsed="false" >
+				<h3>Telefoniegeräte</h3>
+				<ul data-role="listview" data-dividertheme="c" class="nw_list">
+					{{ fritzbox.dect('FB_FON1', 'FB_fon1_name','', '', '', '', '', '', 'FB_fon1_number', '') }}
+					{{ fritzbox.dect('FB_FON2', 'FB_fon2_name','', '', '', '', '', '', 'FB_fon2_number', '') }}
+					{{ fritzbox.dect('FB_dect1', 'FB_dect1_name','FB_dect1_version', 'FB_dect1_manufacturer', 'FB_dect1_model', 'FB_dect1_alarmringtone', 'FB_dect1_internringtone', 'FB_dect1_image', 'FB_dect1_number', 'FB_dect1_radio') }}
+					{{ fritzbox.dect('FB_dect2', 'FB_dect2_name', 'FB_dect2_version', 'FB_dect2_manufacturer', 'FB_dect2_model', 'FB_dect2_alarmringtone', 'FB_dect2_internringtone', 'FB_dect2_image', 'FB_dect2_number', 'FB_dect2_radio') }}
+					{{ fritzbox.dect('FB_dect3', 'FB_dect3_name', 'FB_dect3_version', 'FB_dect3_manufacturer', 'FB_dect3_model', 'FB_dect3_alarmringtone', 'FB_dect3_internringtone', 'FB_dect3_image', 'FB_dect3_number', 'FB_dect3_radio') }}
+					{{ fritzbox.dect('FB_dect4', 'FB_dect4_name', 'FB_dect4_version', 'FB_dect4_manufacturer', 'FB_dect4_model', 'FB_dect4_alarmringtone', 'FB_dect4_internringtone', 'FB_dect4_image', 'FB_dect4_number', 'FB_dect4_radio') }}
+					{{ fritzbox.dect('FB_dect5', 'FB_dect5_name', 'FB_dect5_version', 'FB_dect5_manufacturer', 'FB_dect5_model', 'FB_dect5_alarmringtone', 'FB_dect5_internringtone', 'FB_dect5_image', 'FB_dect5_number', 'FB_dect5_radio') }}
+				</ul>
+			</div>
+		</div>
+	</div>	
+
+    <div class="block">
+		<div class="set-2" data-role="collapsible-set" data-theme="c" data-content-theme="a" data-mini="true" style="min-height:150px">
+			<div data-role="collapsible" data-collapsed="false" >
+				<h3>Anrufbeantworter</h3>
+				<ul data-role="listview" data-dividertheme="c" class="nw_list">
+					{{ fritzbox.tam('FB_tam1', 'FB_tam1_name','FB_tam1_newMsg', 'FB_tam1_oldMsg', 'FB_tam1_state') }}
+					{{ fritzbox.tam('FB_tam2', 'FB_tam2_name','FB_tam2_newMsg', 'FB_tam2_oldMsg', 'FB_tam2_state') }}
+					{{ fritzbox.tam('FB_tam3', 'FB_tam3_name','FB_tam3_newMsg', 'FB_tam3_oldMsg', 'FB_tam3_state') }}
+				</ul>
+			</div>
+		</div>
+	</div>	
+	
+	<div class="block">
+		<div class="set-2" data-role="collapsible-set" data-theme="c" data-content-theme="a" data-mini="true">
+			<div data-role="collapsible" data-collapsed="false" >
+				<h3>User und heutige Nutzung</h3>
+				{% set arr = [] %}
+				{% for i in 1..50 %}
+				{% set arr = arr|merge(['FB_user' ~ i]) %}
+				{% endfor %}				
+				<ul data-role="listview" data-dividertheme="c" class="nw_list">
+					{{ fritzbox.user(arr, '_name','_monthtime', '_todayTime', '_todaysec', '_type') }}
+				</ul>
+			</div>
+		</div>
+	</div>	
+	
+
+	
+{% endblock %}
+

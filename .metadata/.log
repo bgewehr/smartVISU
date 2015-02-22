@@ -1,0 +1,20 @@
+!SESSION 2015-01-15 22:09:57.931 -----------------------------------------------
+eclipse.buildId=4.4.1.M20140925-0400
+java.version=1.8.0_25
+java.vendor=Oracle Corporation
+BootLoader constants: OS=win32, ARCH=x86, WS=win32, NL=de_DE
+Framework arguments:  -product org.eclipse.epp.package.php.product -product org.eclipse.epp.package.php.product
+Command-line arguments:  -os win32 -ws win32 -arch x86 -product org.eclipse.epp.package.php.product -data V:\pages\gewehr -product org.eclipse.epp.package.php.product
+
+!ENTRY org.eclipse.mylyn.tasks.core 4 0 2015-01-16 18:13:51.437
+!MESSAGE Could not write: V:\pages\gewehr\.metadata\.mylyn\repositories.xml.zip
+!STACK 0
+java.io.IOException: Der angegebene Netzwerkname ist nicht mehr verfügbar
+	at java.io.WinNTFileSystem.createFileExclusively(Native Method)
+	at java.io.File.createNewFile(Unknown Source)
+	at org.eclipse.mylyn.internal.tasks.core.TaskRepositoriesExternalizer.writeRepositoriesToXML(TaskRepositoriesExternalizer.java:51)
+	at org.eclipse.mylyn.internal.tasks.core.TaskRepositoryManager.saveRepositories(TaskRepositoryManager.java:422)
+	at org.eclipse.mylyn.internal.tasks.core.RepositoryExternalizationParticipant.save(RepositoryExternalizationParticipant.java:77)
+	at org.eclipse.mylyn.internal.tasks.core.externalization.AbstractExternalizationParticipant.execute(AbstractExternalizationParticipant.java:70)
+	at org.eclipse.mylyn.internal.tasks.core.externalization.ExternalizationManager$ExternalizationJob.run(ExternalizationManager.java:222)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:54)

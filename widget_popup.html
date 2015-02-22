@@ -1,0 +1,69 @@
+
+{% macro dimmer(id, txt, gad_switch, gad_value, min, max, step) %}
+    {% import "device.html" as device %}
+	<div id="{{ id }}" data-role="popup" data-overlay-theme="a" class="nw_dimmer-popup">
+	    {{ device.dimmer(id~'device', txt, gad_switch, gad_value, min, max, step) }}
+	</div>
+{% endmacro %}
+
+{% macro dimmerEx(id, txt, gad_switch, gad_value, pic_on, pic_off, min, max, step) %}
+    {% import "widget_ext.html" as ext %}
+        <div id="{{ id }}" data-role="popup" data-overlay-theme="a" class="nw_dimmer-popup">
+            {{ ext.dimmer(id~'dimmer_ext', txt, gad_switch, gad_value, pic_on, pic_off, min, max, step) }}
+        </div>
+{% endmacro %}
+
+{% macro rgb(id, txt, gad_switch_r, gad_value_r, gad_switch_g, gad_value_g, gad_switch_b, gad_value_b, min, max, step) %}
+    {% import "device.html" as device %}
+	<div id="{{ id }}" data-role="popup" data-overlay-theme="a" class="nw_rgb-popup">
+	    {{ device.dimmer(id~'red', txt~' Rot', gad_switch_r, gad_value_r, min, max, step) }}
+	    {{ device.dimmer(id~'green', txt~' Grün', gad_switch_g, gad_value_g, min, max, step) }}
+	    {{ device.dimmer(id~'blue', txt~' Blau', gad_switch_b, gad_value_b, min, max, step) }}
+	</div>
+{% endmacro %}
+
+{% macro blind(id, txt, gad_move, gad_stop, gad_pos, gad_shift, gad_angle, min, max, step) %}
+    {% import "widget_homematic.html" as homematic %}
+	<div id="{{ id }}" data-role="popup" data-overlay-theme="a" class="nw_blind-popup">
+            {{ homematic.hmbl(id~'shutter', txt, gad_move, gad_stop, gad_pos, gad_shift, gad_angle, min, max, step) }}
+	</div>
+{% endmacro %}
+
+{% macro rtr(id, txt, gad_actual, gad_set, gad_controlmode, gad_daytemp, gad_nighttemp, gad_window, gad_battery, gad_state, gad_txt, step, gad_humidity) %}
+    {% import "widget_homematic.html" as homematic %}
+	<div id="{{ id }}" data-role="popup" data-overlay-theme="a" class="nw_rtr-popup	rtr">
+		{{ homematic.hmtc(id~'rtr', 'mode ', gad_actual, gad_set, gad_controlmode, gad_daytemp, gad_nighttemp, gad_window, gad_battery, gad_state, gad_txt, step, '', gad_humidity) }}
+    </div>
+{% endmacro %}
+
+{% macro rtrCC(id, txt, gad_actual, gad_set, gad_controlmode, gad_daytemp, gad_nighttemp, gad_window, gad_battery, gad_state, gad_txt, step, gad_valve) %}
+    {% import "widget_homematic.html" as homematic %}
+	<div id="{{ id }}" data-role="popup" data-overlay-theme="a" class="nw_rtrCC-popup rtr">
+		{{ homematic.hmtc(id~'rtr', 'mode ', gad_actual, gad_set, gad_controlmode, gad_daytemp, gad_nighttemp, gad_window, gad_battery, gad_state, gad_txt, step, gad_valve) }}
+    </div>
+{% endmacro %}
+
+{% macro hmtctimer(id, txt, gad_prog, gad_p1_sat, gad_p1_sun, gad_p1_mon, gad_p1_tue, gad_p1_wed, gad_p1_thu, gad_p1_fri, gad_init, gad_save, gad_restore, gad_p2_sat, gad_p2_sun, gad_p2_mon, gad_p2_tue, gad_p2_wed, gad_p2_thu, gad_p2_fri, gad_p3_sat, gad_p3_sun, gad_p3_mon, gad_p3_tue, gad_p3_wed, gad_p3_thu, gad_p3_fri) %}
+    {% import "widget_homematic.html" as homematic %}
+	<div id="{{ id }}" data-role="popup" data-overlay-theme="a" class="nw_rtr-timer-popup">
+        {{ homematic.hmtctimer(id~'rtr_timer', txt, gad_prog, gad_p1_sat, gad_p1_sun, gad_p1_mon, gad_p1_tue, gad_p1_wed, gad_p1_thu, gad_p1_fri, gad_init, gad_save, gad_restore, gad_p2_sat, gad_p2_sun, gad_p2_mon, gad_p2_tue, gad_p2_wed, gad_p2_thu, gad_p2_fri, gad_p3_sat, gad_p3_sun, gad_p3_mon, gad_p3_tue, gad_p3_wed, gad_p3_thu, gad_p3_fri) }}
+    </div>
+{% endmacro %}
+
+{% macro image(id, txt, src, path, mode, time ) %}
+    {% import "multimedia.html" as multimedia %}
+    {% import "basic.html" as basic %}
+	<div id="{{ id }}" data-role="popup" data-overlay-theme="a" class="nw_camera_popup">
+		<table>
+		<tr><td><h3>{{txt}}</h3></td><td class="popupbuttons">
+        <span data-role="controlgroup" data-type="horizontal">
+        	{{ basic.httpcmd('enabletorch', 'camtorchon', icon1~'light_led.png', 'http://192.168.178.26:8080/enabletorch', 'micro') }}
+        	{{ basic.httpcmd('disabletorch','camtorchoff', icon0~'light_led.png', 'http://192.168.178.26:8080/disabletorch', 'micro') }} 
+        	{{ basic.httpcmd('enabletorch', 'camtorchon', icon1~'scene_night.png', 'http://192.168.178.26:8080/settings/night_vision?set=on', 'micro') }}
+        	{{ basic.httpcmd('disabletorch','camtorchoff', icon0~'scene_night.png', 'http://192.168.178.26:8080/settings/night_vision?set=off', 'micro') }} 
+		</span>
+		</td></tr></table> 
+
+        {{ multimedia.image(id~'camera', src~path, mode, time) }}
+    </div>
+{% endmacro %}

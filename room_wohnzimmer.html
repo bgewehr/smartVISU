@@ -1,0 +1,45 @@
+/**
+* -----------------------------------------------------------------------------
+* @package     smartVISU
+* @author      Martin Gleiß
+* @copyright   2012
+* @license     GPL [http://www.gnu.de]
+* -----------------------------------------------------------------------------
+*/
+
+{% extends "rooms.html" %}
+{% import "widget_list.html" as list %}
+
+{% block content %}
+
+	<div class="preblock">
+	</div>
+	
+	<h1><img class="icon" src='{{ icon0 }}scene_livingroom.png'/>Wohnen</h1>
+
+	<div class="scenes">
+		<span data-role="controlgroup" data-type="horizontal">
+			{{ basic.button('light.b', 'wz.light.szene', icon1~'it_television.png', icon0~'it_television.png', 'fernsehen') }}
+			{{ basic.button('light.d', 'wz.light.szene', icon1~'light_dinner_table.png', icon0~'light_dinner_table.png', 'lesen') }}
+			{{ basic.button('light.e', 'wz.light.szene', icon1~'light_party.png', icon0~'light_party.png', 'party') }}
+			{{ basic.button('light.f', 'wz.light.szene', icon1~'light_light_dim_100.png', icon0~'light_light_dim_100.png', 'full') }}
+			{{ basic.button('light.h', 'wz.light.szene', icon1~'control_on_off.png', icon0~'control_on_off.png', 'off') }}
+		</span>
+	</div>	
+	  
+	<div style="clear:both;"></div>
+	<ul data-role="listview" data-dividertheme="c" class="nw_list">
+		{{ list.header()}}
+		{{ list.dimmer('eg.wohnen.licht','Deckenspots','eg.wohnen.licht','eg.wohnen.licht.wert','',0, 100) }}
+	    {{ list.switch('Leselampe', 'Leselampe', 'Leselampe.basic.switch', 'Leselampe_uzsu', icon1~'light_floor_lamp.png', icon0~'light_floor_lamp.png') }}
+	    {{ list.switch('Tannenbaum', 'Tannenbaum', 'Tannenbaum', 'Tannenbaum_uzsu', icon1~'scene_x-mas.png', icon0~'scene_x-mas.png') }}
+	    {{ list.blind('Roll_EG','Rolladen EG','EG_blind_mov','EG_blind_stop','EG_blind_pos','','', 'EG_blind_uzsu',0,100,5) }}
+		{{ list.window('Terr.fenster', 'Terrassenfenster', 'WZ.fenster', 'WZ.fenster_duration') }}
+	    {{ list.blind('Roll_Terrasse','Rolladen Terr.', 'T_blind_mov','T_blind_stop','T_blind_pos','', '','T_blind_uzsu',0,100,5) }}	
+		{{ list.rtr('HMTC_EG', 'Raumklima', 'WZ_rtr_act', 'WZ_rtr_set', 'WZ_rtr_controlmode', 'WZ_rtr_daytemp', 'WZ_rtr_nighttemp', 'WZ.fenster', 'WZ_rtr_battery',  'WZ_rtr_state', 'WZ_rtr_text', '', 'WZ.humidity', 'WZ_rtr_prog', 'WZ_rtr_p1_sat', 'WZ_rtr_p1_sun', 'WZ_rtr_p1_mon', 'WZ_rtr_p1_tue', 'WZ_rtr_p1_wed', 'WZ_rtr_p1_thu', 'WZ_rtr_p1_fri', 'WZ_rtr_init', 'WZ_rtr_save', 'WZ_rtr_restore', 'WZ_rtr_p2_sat', 'WZ_rtr_p2_sun', 'WZ_rtr_p2_mon', 'WZ_rtr_p2_tue', 'WZ_rtr_p2_wed', 'WZ_rtr_p2_thu', 'WZ_rtr_p2_fri', 'WZ_rtr_p3_sat', 'WZ_rtr_p3_sun', 'WZ_rtr_p3_mon', 'WZ_rtr_p3_tue', 'WZ_rtr_p3_wed', 'WZ_rtr_p3_thu', 'WZ_rtr_p3_fri') }}
+	</ul>
+
+	{{ plot.comfortchart('WZ_Comfort', 'WZ.temperatur.luft', 'WZ.humidity') }}	
+
+
+{% endblock %}

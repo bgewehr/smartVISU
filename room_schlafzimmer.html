@@ -1,0 +1,39 @@
+/**
+* -----------------------------------------------------------------------------
+* @package     smartVISU
+* @author      Martin Gleiß
+* @copyright   2012
+* @license     GPL [http://www.gnu.de]
+* -----------------------------------------------------------------------------
+*/
+
+
+{% extends "rooms.html" %}
+{% import "widget_list.html" as list %}
+
+{% block content %}
+
+	<div class="preblock">
+	</div>
+
+ <h1><img class="icon" src='{{ icon0 }}scene_sleeping_alternat.png'/>Schlafen</h1>
+
+	<div class="scenes">
+		<span data-role="controlgroup" data-type="horizontal">
+			{{ basic.dual('light.e', 'sz.light.szene.party', icon1~'light_party.png', icon0~'light_party.png', 'party', 'off') }}
+			{{ basic.dual('light.f', 'sz.light.szene.full', icon1~'light_light_dim_100.png', icon0~'light_light_dim_100.png', 'full', 'off') }}
+			{{ basic.dual('light.h', 'sz.light.szene.off', icon1~'control_on_off.png', icon0~'control_on_off.png', 'off', 'off') }}
+		</span>
+	</div>	
+	  
+	<div style="clear:both;"></div>
+	
+	<ul data-role="listview" data-dividertheme="c" class="nw_list">
+		{{ list.header()}}
+		{{ list.it_dimmer('Decke', 'Deckenleuchte','Decke.sw', 'Decke.dim') }}
+		{{ list.switch('Schrank', 'Kleiderschrank', 'Schrank.basic.switch', '', icon1~'light_wall_2.png', icon0~'light_wall_2.png') }}
+	 	{{ list.it_blind('Roll_Loggia', 'Loggia Rollladen', 'Loggia_blind','Loggia_blind_uzsu') }}
+	 	{{ list.it_blind('Roll_dg.bad_UP', 'Bad Rollladen', 'db.bad_blind', 'dg.bad_blind_uzsu') }}
+	</ul>
+{% endblock %}
+

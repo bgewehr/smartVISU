@@ -1,0 +1,46 @@
+ /**
+* -----------------------------------------------------------------------------
+* @package     smartVISU
+* @author      Martin Glei\337
+* @copyright   2012
+* @license     GPL [http://www.gnu.de]
+* -----------------------------------------------------------------------------
+*/
+
+{% extends "rooms.html" %}
+{% import "basic.html" as basic %}
+{% import "basic2.html" as basic2 %}
+{% import "icon.html" as icon %}
+{% import 'multimedia.html' as multimedia %}
+
+{% block content %}
+
+	<div class="preblock">
+	</div>
+
+	<h1>{{ icon.shutter('garagentor2', '', 'garage.state', 0, 100) }}Garage</h1>
+	
+	<div class="scenes">
+        <span data-role="controlgroup" data-type="horizontal">
+        	{{ basic2.httpcmd('enabletorch', 'camtorchon', icon1~'light_led.png', 'http://192.168.178.26:8080/enabletorch') }}
+        	{{ basic2.httpcmd('disabletorch','camtorchoff', icon0~'light_led.png', 'http://192.168.178.26:8080/disabletorch') }} 
+        	{{ basic2.httpcmd('enablenightview', 'camtorchon', icon1~'scene_night.png', 'http://192.168.178.26:8080/settings/night_vision?set=on') }}
+        	{{ basic2.httpcmd('disablenightview','camtorchoff', icon0~'scene_night.png', 'http://192.168.178.26:8080/settings/night_vision?set=off') }}
+			{{ basic.button('openclose', 'garage.sw', '', icon0~'Hoermann.png') }}
+		</span>
+	</div>	
+	
+	<div style="clear:both;"></div>
+
+
+    <div class="block">
+		<div class="set-2" data-role="collapsible-set" data-theme="c" data-content-theme="a" data-mini="true">
+				<div data-role="collapsible" data-collapsed="false" >
+					<h3>Kamera</h3>
+				    {{ multimedia.image('Cam_mini','http://192.168.178.26:8080/shot.jpg', 'corner', '5s') }}
+				</div>
+		</div>
+	</div>
+    
+{% endblock %}
+
