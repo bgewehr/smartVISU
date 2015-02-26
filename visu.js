@@ -1,17 +1,37 @@
+
+
 // ----- browser and platform identification -----------------------------------------------------
 var b = document.documentElement;
     b.setAttribute('data-useragent',  navigator.userAgent);
     b.setAttribute('data-platform', navigator.platform );
     b.className += ((!!('ontouchstart' in window) || !!('onmsgesturechange' in window))?' touch':'');
 
+    
+ // QLOCK screensaver
+ // idleTimer() takes an optional argument that defines the idle timeout
+ // timeout is in milliseconds; defaults to 30000
+ $(document).on('pageinit', function() {
+     if (jQuery().idleTimer && navigator.userAgent.match(/iPad/i) != null) {
+         $.idleTimer(300 * 1000);
+     }
+ });
+
+ $(document).bind('idle.idleTimer', function() {
+     $.mobile.changePage("index.php?page=qlock");
+ });
+
+ $(document).bind('active.idleTimer', function() {
+     parent.history.back();
+ });
+    
 
 // ----- b a s i c 2 ------------------------------------------------------------
 // ------Ergänzung von Bernd Gewehr--------------------------------------------
 
-
+$(document).ready(function(){
 
 // ----- basic.pager ----------------------------------------------------------
-$(document).delegate('div[data-widget="basic.pager"]', {
+$('div[data-widget="basic.pager"]').delegate('', {
 	'update': function (event, response) {
 		var prog = response[0].match(/prog[123]/g);
 		$('#' + $(this).attr('data-val')).css("visibility", "hidden");
@@ -21,15 +41,15 @@ $(document).delegate('div[data-widget="basic.pager"]', {
 });
 
 
-// ----- basic.textrpl ----------------------------------------------------------
-$(document).delegate('a[data-widget="basic.httpcmd"]', {
+// ----- basic.httpcmd ----------------------------------------------------------
+$('a[data-widget="basic.httpcmd"]').delegate('', {
 	'click': function (event) {
 		$.ajax($(this).attr('data-val'));
 	}
 });
 
 // ----- basic.textrpl ----------------------------------------------------------
-$(document).delegate('span[data-widget="basic.textrpl"]', {
+$('span[data-widget="basic.textrpl"]').delegate('', {
 	'update': function (event, response) {
 		var UTF8response=response[0].replace(/ÃÂ¼/g, "ü");
 		UTF8response=UTF8response.replace(/ÃÂ¤/g, "ä");
@@ -41,7 +61,7 @@ $(document).delegate('span[data-widget="basic.textrpl"]', {
 
 
 	// ----- basic.timecounter-----------------------------------------------------
-$(document).delegate('span[data-widget="basic.timecounter"]', {
+$('span[data-widget="basic.timecounter"]').delegate('', {
 	'init': function (event) {
 	},
 	'update': function (event, response) {
@@ -51,7 +71,7 @@ $(document).delegate('span[data-widget="basic.timecounter"]', {
 	
 	
 	// ----- basic.textinput ------------------------------------------------------
-$(document).delegate('input[data-widget="basic.textinput"]', {
+$('input[data-widget="basic.textinput"]').delegate('', {
 	'update': function (event, response) {
 		// DEBUG: console.log("[basic.textinput] update '" + this.id + "':", response); 
 		$(this).val(response);
@@ -64,7 +84,7 @@ $(document).delegate('input[data-widget="basic.textinput"]', {
 });
 
 	// ----- basic.select_single -------------------------------------------------------
-$(document).delegate('select[data-widget="basic.selectmenu"]', {
+$('select[data-widget="basic.selectmenu"]').delegate('', {
 	'update': function (event, response) {
 		var prog = response[0].match(/prog[123]/g);
 		$(this).val(prog).selectmenu('refresh');
@@ -78,7 +98,7 @@ $(document).delegate('select[data-widget="basic.selectmenu"]', {
 });
 
 	// ----- basic.img ----------------------------------------------------------
-$(document).delegate('img[data-widget="basic.img"]', {
+$('img[data-widget="basic.img"]').delegate('', {
 	'update': function (event, response) {
 	if ($('#' + this.id).attr('alt') == '') {
 		$('#' + this.id).attr('src',response);
@@ -92,7 +112,7 @@ $(document).delegate('img[data-widget="basic.img"]', {
 });
 
 // ----- visu.lbutton ----------------------------------------------------------
-$(document).delegate('[data-widget="basic.lbutton"]', {
+$('[data-widget="basic.lbutton"]').delegate('', {
         'vmousedown': function(event) { // Short/Long Button
             event.preventDefault();
 	    var items = widget.explode($(this).attr('data-item'));
@@ -118,8 +138,8 @@ $(document).delegate('[data-widget="basic.lbutton"]', {
 	}
 });
 
-	// ----- basic.lbutton ---------------------------------------------------------
-$(document).delegate('a[data-widget="basic.lbutton"]', {
+// ----- basic.lbutton ---------------------------------------------------------
+$('a[data-widget="basic.lbutton"]').delegate('', {
 	'click': function (event) {
 		if ($(this).attr('data-val') != '') {
 			io.write($(this).attr('data-item'), $(this).attr('data-val'));
@@ -127,10 +147,9 @@ $(document).delegate('a[data-widget="basic.lbutton"]', {
 	}
 });
 
-
     
 // ----- basic.hider-----------------------------------------------------
-$(document).delegate('div[data-widget="basic.hider"]', {
+$('div[data-widget="basic.hider"]').delegate('', {
 	'init': function (event) {
 	},
 		
@@ -142,27 +161,11 @@ if (response == '') {
 }
 });
 	
-// QLOCK screensaver
-// idleTimer() takes an optional argument that defines the idle timeout
-// timeout is in milliseconds; defaults to 30000
-$(document).on('pageinit', function() {
-    if (jQuery().idleTimer && navigator.userAgent.match(/iPad/i) != null) {
-        $.idleTimer(300 * 1000);
-    }
-});
-
-$(document).bind('idle.idleTimer', function() {
-    $.mobile.changePage("index.php?page=qlock");
-});
-
-$(document).bind('active.idleTimer', function() {
-    parent.history.back();
-});
 
 // ----- basic.auth_switch ---------------------------------------------------------
 // ---------------------------------------------------------------------------------
 
-$(document).delegate('span[data-widget="basic.auth_switch"]', {
+$('span[data-widget="basic.auth_switch"]').delegate('', {
 	'update': function (event, response) {
 		$('#' + this.id + ' img').attr('src', (response == $(this).attr('data-val-on') ? $(this).attr('data-pic-on') : $(this).attr('data-pic-off')));
 	},
@@ -172,6 +175,7 @@ $(document).delegate('span[data-widget="basic.auth_switch"]', {
     		$('#' + this.id + '-popup').popup( "open" );
 	}
 
+});
 });
 
 // 
